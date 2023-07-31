@@ -89,3 +89,15 @@ for (let index = 0; index < lowercaseWord.length; index++) {
   }
 }
 console.log(totalVowels);
+
+const arr1 = [1, 2, 3, 4, 1, 2, 1, 3];
+
+let total = 0;
+
+const target = 1;
+
+for (let i = 0; i < arr1.length; i++) {
+  if (arr[i] === target) {
+    total++;
+  }
+}
