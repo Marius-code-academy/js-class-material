@@ -38,12 +38,11 @@ const person2 = {
 console.log(person2);
 console.log(person);
 
-function Augintinis() {
-  this.name = "Marius";
-  console.log(this);
+function Augintinis(name) {
+  this.name = name;
 }
-
-Augintinis();
+const pukis = new Augintinis("pukis");
+console.log(pukis.name);
 
 const obj = {
   name: "Vytautas",
