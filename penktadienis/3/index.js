@@ -7,6 +7,7 @@ const todos = [
 ];
 
 const ul = document.querySelector("ul");
+const ulFinished = document.querySelector("#finished");
 const newTodoInput = document.querySelector("#todoInput");
 const searchInput = document.querySelector("#search");
 const addButton = document.querySelector("button");
@@ -38,6 +39,7 @@ addButton.addEventListener("click", () => {
 
 function generateTodos(todosToAdd) {
   ul.innerHTML = "";
+  ulFinished.innerHTML = "";
   for (let i = 0; i < todosToAdd.length; i++) {
     const li = document.createElement("li");
     li.textContent = todosToAdd[i].text;
@@ -55,7 +57,11 @@ function generateTodos(todosToAdd) {
     });
 
     li.append(checkbox);
-    ul.append(li);
+    if (todosToAdd[i].completed) {
+      ulFinished.append(li);
+    } else {
+      ul.append(li);
+    }
   }
 }
 
