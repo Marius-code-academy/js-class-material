@@ -45,7 +45,30 @@ const altoriuSesely = new Book("Altoriu Sesely", 1990, 2, "Kazkas");
 martynoMazvydo.addNewBook(kvepalai);
 martynoMazvydo.addNewBook(altoriuSesely);
 
-console.log(martynoMazvydo.findBookByTitle("Kvepalai"));
 martynoMazvydo.removeBookById(1);
 
-console.log(martynoMazvydo);
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  breathe() {
+    console.log("I am breathing");
+  }
+}
+
+class Mamal extends Animal {
+  constructor(typeOfDrink, name) {
+    super(name);
+    this.typeOfDrink = typeOfDrink;
+  }
+  drink() {
+    console.log(" I am drinking milk");
+  }
+}
+
+const karve = new Mamal("Vanduo", "Birute");
+
+karve.breathe();
+karve.drink();
+console.log(karve.typeOfDrink);
+console.log(karve.name);
