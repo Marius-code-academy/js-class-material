@@ -1,4 +1,45 @@
+let rows = [];
+
 function createTable() {
+  const form = document.createElement("form");
+  const searchInput = document.createElement("input");
+  searchInput.type = "search";
+  const submitButton = document.createElement("button");
+  submitButton.type = "submit";
+  submitButton.textContent = "Search";
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const search = searchInput.value.trim();
+    const filtered = rows.filter((row) => row.name.toLowerCase().includes(search.toLowerCase()));
+    tbody.innerHTML = "";
+    filtered.forEach((row) => {
+      generateTableRow(row);
+    });
+  });
+
+  form.append(searchInput, submitButton);
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.id = "vipCheckbox";
+  checkbox.addEventListener("change", (e) => {
+    tbody.innerHTML = "";
+    if (e.target.checked) {
+      const vips = rows.filter((row) => row.vip);
+      vips.forEach((vip) => {
+        generateTableRow(vip);
+      });
+    } else {
+      rows.forEach((row) => {
+        generateTableRow(row);
+      });
+    }
+  });
+
+  const label = document.createElement("label");
+  label.textContent = "Filter VIP";
+  label.setAttribute("for", "vipCheckbox");
   const table = document.createElement("table");
   const tHead = document.createElement("thead");
   const tr = document.createElement("tr");
@@ -20,7 +61,7 @@ function createTable() {
   tHead.append(tr);
   table.append(tHead, document.createElement("tbody"));
 
-  document.body.append(table);
+  document.body.append(form, label, checkbox, table);
 }
 
 async function getRobots() {
@@ -28,11 +69,10 @@ async function getRobots() {
     const response = await fetch("https://magnetic-melon-yam.glitch.me/");
     if (response.ok) {
       const robots = await response.json();
-      const rows = [];
+      rows = robots;
       robots.forEach((robot) => {
-        rows.push(generateTableRow(robot));
+        generateTableRow(robot);
       });
-      tbody.append(...rows);
     }
   } catch (error) {
     console.log(error);
@@ -60,7 +100,7 @@ function generateTableRow(data) {
   tdFavColor.textContent = data.fav_color;
 
   tr.append(tdId, tdImage, tdName, tdLastName, tdCity, tdFavColor);
-  return tr;
+  tbody.append(tr);
 }
 
 createTable();
